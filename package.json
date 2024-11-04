@@ -19,8 +19,9 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@fawmi/vue-google-maps": "^0.9.79",
+        "@fawmi/vue-google-maps": "0.9.67",
         "@inertiajs/vue3": "^1.2.0",
+        "@vueuse/core": "^11.2.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "lucide-vue-next": "^0.454.0",

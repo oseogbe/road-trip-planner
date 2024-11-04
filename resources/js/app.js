@@ -5,7 +5,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
-// import VueGoogleMaps from '@fawmi/vue-google-maps';
+import VueGoogleMaps from '@fawmi/vue-google-maps';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Road Trip Planner';
 
@@ -22,11 +22,12 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
-            // .use(VueGoogleMaps, {
-            //     load: {
-            //         key: process.env.VITE_APP_GOOGLE_API_KEY
-            //     }
-            // })
+            .use(VueGoogleMaps, {
+                load: {
+                    key: import.meta.env.VITE_APP_GOOGLE_API_KEY,
+                    libraries: "places"
+                }
+            })
             .mount(el);
     },
     progress: {
