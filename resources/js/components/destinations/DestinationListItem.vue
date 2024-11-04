@@ -25,7 +25,7 @@ const getTags = (tags) => {
             </CardDescription>
         </CardHeader>
         <CardContent>
-            <div class="flex gap-x-3">
+            <div class="flex gap-x-3 overflow-x-auto">
                 <Badge
                     v-for="tag in getTags(destination.tags)"
                     :key="tag"

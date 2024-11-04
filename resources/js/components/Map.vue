@@ -3,21 +3,23 @@ import { onMounted, ref, watch } from "vue";
 
 const props = defineProps(["destinations"]);
 
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Directions from "./Directions.vue";
+import NearbyPlaces from "./modals/NearbyPlaces.vue";
 
 const center = ref({ lat: null, lng: null });
-const zoom = ref(13);
+const zoom = ref(12);
 const route = ref(null);
 const routeDetails = ref([]);
 const totalDistance = ref("");
 const totalDuration = ref("");
 
-const onMarkerClick = (destination) => {
-    alert(`Destination: ${destination.name}`);
-};
+const selectedDestination = ref("");
+const nearbyPlaces = ref([]);
+const openDialog = ref(false);
 
 const calculateRoute = () => {
-    if (props.destinations.length < 2) return; // Need at least two points
+    if (!window.google || props.destinations.length < 2) return; // Need at least two points
 
     const directionsService = new google.maps.DirectionsService();
 
@@ -80,6 +82,33 @@ watch(
     { deep: true }
 );
 
+const onMarkerClick = (destination) => {
+    selectedDestination.value = destination.name;
+    fetchNearbyPlaces(destination.position);
+    openDialog.value = true;
+};
+
+const fetchNearbyPlaces = (position) => {
+    if (!window.google) return;
+
+    const service = new google.maps.places.PlacesService(
+        document.createElement("div")
+    );
+    const request = {
+        location: position,
+        radius: "1500", // Search radius in meters
+        type: ["tourist_attraction"], // Type of places to search
+    };
+
+    service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            nearbyPlaces.value = results; // Set the nearby places
+        } else {
+            console.error("Error fetching nearby places:", status);
+        }
+    });
+};
+
 onMounted(() => {
     if (props.destinations.length > 0) {
         const { lat, lng } = props.destinations[0].position;
@@ -100,6 +129,13 @@ onMounted(() => {
 });
 </script>
 <template>
+    <div class="mb-4">
+        <Alert class="bg-brownish-yellow" v-show="destinations.length > 1">
+            <AlertDescription>
+                Click on the markers to view nearby places
+            </AlertDescription>
+        </Alert>
+    </div>
     <GMapMap
         v-if="center"
         :center="center"
@@ -127,4 +163,11 @@ onMounted(() => {
             :totalDuration="totalDuration"
         />
     </div>
+    <NearbyPlaces
+        v-if="openDialog"
+        :destination="selectedDestination"
+        :nearby-places="nearbyPlaces"
+        :open="openDialog"
+        @dialogClosed="openDialog = false"
+    />
 </template>
