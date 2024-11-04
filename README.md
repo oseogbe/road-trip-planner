@@ -33,22 +33,24 @@ Make sure you have the following installed on your machine:
    ```bash
    php artisan key:generate
 
-6. Run database migrations (Make sure your database is set up in the .env file before running migrations):
+6. Add Google Maps API key to environment file (Make sure the variable name is set to VITE_APP_GOOGLE_API_KEY)
+
+7. Run database migrations (Make sure your database is set up in the .env file before running migrations):
    ```bash
    php artisan migrate
 
-7. Install JavaScript dependencies:
+8. Install JavaScript dependencies:
    ```bash
    npm install
 
-8. Start the Node development server and compile assets:
+9. Start the Node development server and compile assets:
    ```bash
    npm run dev
 
-9. Start the Laravel development server:
+10. Start the Laravel development server:
     ```bash
     php artisan serve
 
-10. Access the application: Open your browser and visit http://localhost:8000.
+11. Access the application: Open your browser and visit http://localhost:8000.
 
    
