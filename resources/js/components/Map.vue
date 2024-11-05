@@ -129,13 +129,11 @@ onMounted(() => {
 });
 </script>
 <template>
-    <div class="mb-4">
-        <Alert class="bg-brownish-yellow" v-show="destinations.length > 1">
-            <AlertDescription>
-                Click on the markers to view nearby places
-            </AlertDescription>
-        </Alert>
-    </div>
+    <Alert class="mb-4 bg-brownish-yellow" v-show="destinations.length > 1">
+        <AlertDescription>
+            Click on the markers to view nearby places
+        </AlertDescription>
+    </Alert>
     <GMapMap
         v-if="center"
         :center="center"

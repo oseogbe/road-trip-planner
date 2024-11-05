@@ -6,6 +6,9 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import VueGoogleMaps from '@fawmi/vue-google-maps';
+import Toast from "vue-toastification";
+
+import "vue-toastification/dist/index.css";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Road Trip Planner';
 
@@ -28,6 +31,7 @@ createInertiaApp({
                     libraries: "places"
                 }
             })
+            .use(Toast)
             .mount(el);
     },
     progress: {
