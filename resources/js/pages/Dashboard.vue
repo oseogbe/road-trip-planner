@@ -5,6 +5,7 @@ import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue";
 import Map from "@/components/Map.vue";
 import DestinationForm from "@/components/destinations/DestinationForm.vue";
 import DestinationList from "@/components/destinations/DestinationList.vue";
+import SaveTrip from "@/components/destinations/SaveTrip.vue";
 
 const destinations = ref(
     JSON.parse(localStorage.getItem("destinations")) ?? []
@@ -39,6 +40,7 @@ const deleteDestination = (index) => {
                             @reorder="(d) => (destinations = d)"
                             @remove="deleteDestination"
                         />
+                        <SaveTrip v-show="destinations.length > 0" />
                     </div>
                     <div class="flex-1">
                         <Map :destinations="destinations" />
