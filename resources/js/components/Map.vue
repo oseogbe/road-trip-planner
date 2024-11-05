@@ -126,6 +126,7 @@ onMounted(() => {
                 center.value = { lat, lng };
             },
             (error) => {
+                center.value = { lat: 9.08048, lng: 7.48642 }; // workaround for errors like 'Only secure origins are allowed'
                 console.error("Error getting geolocation:", error);
             }
         );
