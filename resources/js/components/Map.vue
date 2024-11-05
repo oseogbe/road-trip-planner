@@ -77,6 +77,11 @@ const calculateRoute = () => {
 watch(
     () => props.destinations,
     (newDestinations) => {
+        if (props.destinations.length == 0) {
+            routeDetails.value = [];
+            totalDistance.value = "";
+            totalDuration.value = "";
+        }
         calculateRoute();
     },
     { deep: true }

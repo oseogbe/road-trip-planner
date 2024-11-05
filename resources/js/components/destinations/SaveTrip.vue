@@ -12,6 +12,8 @@ const form = useForm({
 const toast = useToast();
 const { props } = usePage();
 
+const emit = defineEmits(["clearDestinations"]);
+
 const saveTrip = () => {
     const formattedDestinations = JSON.parse(
         localStorage.getItem("destinations")
@@ -27,10 +29,10 @@ const saveTrip = () => {
 
     form.post(route("save.trip"), {
         onFinish: () => {
-            toast.success(props.flash.message, {
+            toast.success(props.flash.message ?? "Trip saved", {
                 timeout: 2000,
             });
-            localStorage.removeItem("destinations");
+            emit("clearDestinations");
         },
     });
 };
