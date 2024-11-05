@@ -20,6 +20,11 @@ const deleteDestination = (index) => {
     destinations.value.splice(index, 1);
     localStorage.setItem("destinations", JSON.stringify(destinations.value));
 };
+
+const clearDestinations = () => {
+    localStorage.removeItem("destinations");
+    destinations.value = [];
+};
 </script>
 
 <template>
@@ -40,7 +45,10 @@ const deleteDestination = (index) => {
                             @reorder="(d) => (destinations = d)"
                             @remove="deleteDestination"
                         />
-                        <SaveTrip v-show="destinations.length > 0" />
+                        <SaveTrip
+                            v-show="destinations.length > 0"
+                            @clearDestinations="clearDestinations"
+                        />
                     </div>
                     <div class="flex-1">
                         <Map :destinations="destinations" />
