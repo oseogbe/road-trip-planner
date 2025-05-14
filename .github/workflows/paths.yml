@@ -1,0 +1,17 @@
+on:
+    push:
+        paths:
+            - "app/**"
+            - "!app/**-test.php"
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Build
+              run: |
+                echo "Building..."
+            - name: Deploy
+              run: |
+                echo "Deploying..."
