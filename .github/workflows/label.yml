@@ -1,0 +1,15 @@
+on:
+  issues:
+    types:
+      - labeled
+
+jobs:
+  print-on-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print label information
+        env:
+            LABEL: ${{ github.event.label.name }}
+            ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+            echo "Label '$LABEL' was added to issue: $ISSUE_URL"
